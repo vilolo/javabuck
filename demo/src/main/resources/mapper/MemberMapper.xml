@@ -1,0 +1,1064 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.Member" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="r_member_id" property="rMemberId" jdbcType="INTEGER" />
+    <result column="layer" property="layer" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="SMALLINT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="trade_password" property="tradePassword" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="expected_money" property="expectedMoney" jdbcType="DECIMAL" />
+    <result column="fetching_money" property="fetchingMoney" jdbcType="DECIMAL" />
+    <result column="frozen_money" property="frozenMoney" jdbcType="DECIMAL" />
+    <result column="score" property="score" jdbcType="DECIMAL" />
+    <result column="fetching_score" property="fetchingScore" jdbcType="DECIMAL" />
+    <result column="sum_score" property="sumScore" jdbcType="DECIMAL" />
+    <result column="coupon" property="coupon" jdbcType="DECIMAL" />
+    <result column="wheel_times" property="wheelTimes" jdbcType="INTEGER" />
+    <result column="exp" property="exp" jdbcType="INTEGER" />
+    <result column="cur_exp" property="curExp" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+    <result column="subscribe" property="subscribe" jdbcType="BIT" />
+    <result column="subscribe_time" property="subscribeTime" jdbcType="INTEGER" />
+    <result column="last_profit_time" property="lastProfitTime" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="ctime" property="ctime" jdbcType="INTEGER" />
+    <result column="cctime" property="cctime" jdbcType="INTEGER" />
+    <result column="sign" property="sign" jdbcType="INTEGER" />
+    <result column="signtime" property="signtime" jdbcType="INTEGER" />
+    <result column="isfx" property="isfx" jdbcType="BIT" />
+    <result column="isfxgd" property="isfxgd" jdbcType="BIT" />
+    <result column="total_buy" property="totalBuy" jdbcType="REAL" />
+    <result column="total_yj" property="totalYj" jdbcType="REAL" />
+    <result column="total_xxyj" property="totalXxyj" jdbcType="REAL" />
+    <result column="total_xxlink" property="totalXxlink" jdbcType="INTEGER" />
+    <result column="total_xxsub" property="totalXxsub" jdbcType="INTEGER" />
+    <result column="total_xxunsub" property="totalXxunsub" jdbcType="INTEGER" />
+    <result column="total_xxbuy" property="totalXxbuy" jdbcType="INTEGER" />
+    <result column="employee" property="employee" jdbcType="BIT" />
+    <result column="is_profited" property="isProfited" jdbcType="BIT" />
+    <result column="change_rmember" property="changeRmember" jdbcType="BIT" />
+    <result column="recommeded_at" property="recommededAt" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.model.MemberWithBLOBs" extends="BaseResultMap" >
+    <result column="relations" property="relations" jdbcType="LONGVARCHAR" />
+    <result column="ticket" property="ticket" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, r_member_id, layer, level, mobile, password, trade_password, name, email, money, 
+    expected_money, fetching_money, frozen_money, score, fetching_score, sum_score, coupon, 
+    wheel_times, exp, cur_exp, openid, nickname, sex, language, headimgurl, subscribe, 
+    subscribe_time, last_profit_time, remark, status, ctime, cctime, sign, signtime, 
+    isfx, isfxgd, total_buy, total_yj, total_xxyj, total_xxlink, total_xxsub, total_xxunsub, 
+    total_xxbuy, employee, is_profited, change_rmember, recommeded_at
+  </sql>
+  <sql id="Blob_Column_List" >
+    relations, ticket
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.example.model.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from s_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.model.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from s_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from s_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.model.MemberExample" >
+    delete from s_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.model.MemberWithBLOBs" >
+    insert into s_member (id, r_member_id, layer, 
+      level, mobile, password, 
+      trade_password, name, email, 
+      money, expected_money, fetching_money, 
+      frozen_money, score, fetching_score, 
+      sum_score, coupon, wheel_times, 
+      exp, cur_exp, openid, 
+      nickname, sex, language, 
+      headimgurl, subscribe, subscribe_time, 
+      last_profit_time, remark, status, 
+      ctime, cctime, sign, 
+      signtime, isfx, isfxgd, total_buy, 
+      total_yj, total_xxyj, total_xxlink, 
+      total_xxsub, total_xxunsub, total_xxbuy, 
+      employee, is_profited, change_rmember, 
+      recommeded_at, relations, ticket
+      )
+    values (#{id,jdbcType=INTEGER}, #{rMemberId,jdbcType=INTEGER}, #{layer,jdbcType=INTEGER}, 
+      #{level,jdbcType=SMALLINT}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{tradePassword,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DECIMAL}, #{expectedMoney,jdbcType=DECIMAL}, #{fetchingMoney,jdbcType=DECIMAL}, 
+      #{frozenMoney,jdbcType=DECIMAL}, #{score,jdbcType=DECIMAL}, #{fetchingScore,jdbcType=DECIMAL}, 
+      #{sumScore,jdbcType=DECIMAL}, #{coupon,jdbcType=DECIMAL}, #{wheelTimes,jdbcType=INTEGER}, 
+      #{exp,jdbcType=INTEGER}, #{curExp,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{language,jdbcType=VARCHAR}, 
+      #{headimgurl,jdbcType=VARCHAR}, #{subscribe,jdbcType=BIT}, #{subscribeTime,jdbcType=INTEGER}, 
+      #{lastProfitTime,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
+      #{ctime,jdbcType=INTEGER}, #{cctime,jdbcType=INTEGER}, #{sign,jdbcType=INTEGER}, 
+      #{signtime,jdbcType=INTEGER}, #{isfx,jdbcType=BIT}, #{isfxgd,jdbcType=BIT}, #{totalBuy,jdbcType=REAL}, 
+      #{totalYj,jdbcType=REAL}, #{totalXxyj,jdbcType=REAL}, #{totalXxlink,jdbcType=INTEGER}, 
+      #{totalXxsub,jdbcType=INTEGER}, #{totalXxunsub,jdbcType=INTEGER}, #{totalXxbuy,jdbcType=INTEGER}, 
+      #{employee,jdbcType=BIT}, #{isProfited,jdbcType=BIT}, #{changeRmember,jdbcType=BIT}, 
+      #{recommededAt,jdbcType=INTEGER}, #{relations,jdbcType=LONGVARCHAR}, #{ticket,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.MemberWithBLOBs" >
+    insert into s_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rMemberId != null" >
+        r_member_id,
+      </if>
+      <if test="layer != null" >
+        layer,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="tradePassword != null" >
+        trade_password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="expectedMoney != null" >
+        expected_money,
+      </if>
+      <if test="fetchingMoney != null" >
+        fetching_money,
+      </if>
+      <if test="frozenMoney != null" >
+        frozen_money,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="fetchingScore != null" >
+        fetching_score,
+      </if>
+      <if test="sumScore != null" >
+        sum_score,
+      </if>
+      <if test="coupon != null" >
+        coupon,
+      </if>
+      <if test="wheelTimes != null" >
+        wheel_times,
+      </if>
+      <if test="exp != null" >
+        exp,
+      </if>
+      <if test="curExp != null" >
+        cur_exp,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl,
+      </if>
+      <if test="subscribe != null" >
+        subscribe,
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time,
+      </if>
+      <if test="lastProfitTime != null" >
+        last_profit_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="cctime != null" >
+        cctime,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="signtime != null" >
+        signtime,
+      </if>
+      <if test="isfx != null" >
+        isfx,
+      </if>
+      <if test="isfxgd != null" >
+        isfxgd,
+      </if>
+      <if test="totalBuy != null" >
+        total_buy,
+      </if>
+      <if test="totalYj != null" >
+        total_yj,
+      </if>
+      <if test="totalXxyj != null" >
+        total_xxyj,
+      </if>
+      <if test="totalXxlink != null" >
+        total_xxlink,
+      </if>
+      <if test="totalXxsub != null" >
+        total_xxsub,
+      </if>
+      <if test="totalXxunsub != null" >
+        total_xxunsub,
+      </if>
+      <if test="totalXxbuy != null" >
+        total_xxbuy,
+      </if>
+      <if test="employee != null" >
+        employee,
+      </if>
+      <if test="isProfited != null" >
+        is_profited,
+      </if>
+      <if test="changeRmember != null" >
+        change_rmember,
+      </if>
+      <if test="recommededAt != null" >
+        recommeded_at,
+      </if>
+      <if test="relations != null" >
+        relations,
+      </if>
+      <if test="ticket != null" >
+        ticket,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="rMemberId != null" >
+        #{rMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="layer != null" >
+        #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=SMALLINT},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tradePassword != null" >
+        #{tradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="expectedMoney != null" >
+        #{expectedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fetchingMoney != null" >
+        #{fetchingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenMoney != null" >
+        #{frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="fetchingScore != null" >
+        #{fetchingScore,jdbcType=DECIMAL},
+      </if>
+      <if test="sumScore != null" >
+        #{sumScore,jdbcType=DECIMAL},
+      </if>
+      <if test="coupon != null" >
+        #{coupon,jdbcType=DECIMAL},
+      </if>
+      <if test="wheelTimes != null" >
+        #{wheelTimes,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null" >
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="curExp != null" >
+        #{curExp,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=BIT},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastProfitTime != null" >
+        #{lastProfitTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=INTEGER},
+      </if>
+      <if test="cctime != null" >
+        #{cctime,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null" >
+        #{signtime,jdbcType=INTEGER},
+      </if>
+      <if test="isfx != null" >
+        #{isfx,jdbcType=BIT},
+      </if>
+      <if test="isfxgd != null" >
+        #{isfxgd,jdbcType=BIT},
+      </if>
+      <if test="totalBuy != null" >
+        #{totalBuy,jdbcType=REAL},
+      </if>
+      <if test="totalYj != null" >
+        #{totalYj,jdbcType=REAL},
+      </if>
+      <if test="totalXxyj != null" >
+        #{totalXxyj,jdbcType=REAL},
+      </if>
+      <if test="totalXxlink != null" >
+        #{totalXxlink,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxsub != null" >
+        #{totalXxsub,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxunsub != null" >
+        #{totalXxunsub,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxbuy != null" >
+        #{totalXxbuy,jdbcType=INTEGER},
+      </if>
+      <if test="employee != null" >
+        #{employee,jdbcType=BIT},
+      </if>
+      <if test="isProfited != null" >
+        #{isProfited,jdbcType=BIT},
+      </if>
+      <if test="changeRmember != null" >
+        #{changeRmember,jdbcType=BIT},
+      </if>
+      <if test="recommededAt != null" >
+        #{recommededAt,jdbcType=INTEGER},
+      </if>
+      <if test="relations != null" >
+        #{relations,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.model.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from s_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update s_member
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.rMemberId != null" >
+        r_member_id = #{record.rMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.layer != null" >
+        layer = #{record.layer,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=SMALLINT},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradePassword != null" >
+        trade_password = #{record.tradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expectedMoney != null" >
+        expected_money = #{record.expectedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fetchingMoney != null" >
+        fetching_money = #{record.fetchingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frozenMoney != null" >
+        frozen_money = #{record.frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fetchingScore != null" >
+        fetching_score = #{record.fetchingScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumScore != null" >
+        sum_score = #{record.sumScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.coupon != null" >
+        coupon = #{record.coupon,jdbcType=DECIMAL},
+      </if>
+      <if test="record.wheelTimes != null" >
+        wheel_times = #{record.wheelTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.exp != null" >
+        exp = #{record.exp,jdbcType=INTEGER},
+      </if>
+      <if test="record.curExp != null" >
+        cur_exp = #{record.curExp,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null" >
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null" >
+        subscribe = #{record.subscribe,jdbcType=BIT},
+      </if>
+      <if test="record.subscribeTime != null" >
+        subscribe_time = #{record.subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastProfitTime != null" >
+        last_profit_time = #{record.lastProfitTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.ctime != null" >
+        ctime = #{record.ctime,jdbcType=INTEGER},
+      </if>
+      <if test="record.cctime != null" >
+        cctime = #{record.cctime,jdbcType=INTEGER},
+      </if>
+      <if test="record.sign != null" >
+        sign = #{record.sign,jdbcType=INTEGER},
+      </if>
+      <if test="record.signtime != null" >
+        signtime = #{record.signtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.isfx != null" >
+        isfx = #{record.isfx,jdbcType=BIT},
+      </if>
+      <if test="record.isfxgd != null" >
+        isfxgd = #{record.isfxgd,jdbcType=BIT},
+      </if>
+      <if test="record.totalBuy != null" >
+        total_buy = #{record.totalBuy,jdbcType=REAL},
+      </if>
+      <if test="record.totalYj != null" >
+        total_yj = #{record.totalYj,jdbcType=REAL},
+      </if>
+      <if test="record.totalXxyj != null" >
+        total_xxyj = #{record.totalXxyj,jdbcType=REAL},
+      </if>
+      <if test="record.totalXxlink != null" >
+        total_xxlink = #{record.totalXxlink,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalXxsub != null" >
+        total_xxsub = #{record.totalXxsub,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalXxunsub != null" >
+        total_xxunsub = #{record.totalXxunsub,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalXxbuy != null" >
+        total_xxbuy = #{record.totalXxbuy,jdbcType=INTEGER},
+      </if>
+      <if test="record.employee != null" >
+        employee = #{record.employee,jdbcType=BIT},
+      </if>
+      <if test="record.isProfited != null" >
+        is_profited = #{record.isProfited,jdbcType=BIT},
+      </if>
+      <if test="record.changeRmember != null" >
+        change_rmember = #{record.changeRmember,jdbcType=BIT},
+      </if>
+      <if test="record.recommededAt != null" >
+        recommeded_at = #{record.recommededAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.relations != null" >
+        relations = #{record.relations,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.ticket != null" >
+        ticket = #{record.ticket,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update s_member
+    set id = #{record.id,jdbcType=INTEGER},
+      r_member_id = #{record.rMemberId,jdbcType=INTEGER},
+      layer = #{record.layer,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=SMALLINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      trade_password = #{record.tradePassword,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      expected_money = #{record.expectedMoney,jdbcType=DECIMAL},
+      fetching_money = #{record.fetchingMoney,jdbcType=DECIMAL},
+      frozen_money = #{record.frozenMoney,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=DECIMAL},
+      fetching_score = #{record.fetchingScore,jdbcType=DECIMAL},
+      sum_score = #{record.sumScore,jdbcType=DECIMAL},
+      coupon = #{record.coupon,jdbcType=DECIMAL},
+      wheel_times = #{record.wheelTimes,jdbcType=INTEGER},
+      exp = #{record.exp,jdbcType=INTEGER},
+      cur_exp = #{record.curExp,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=BIT},
+      subscribe_time = #{record.subscribeTime,jdbcType=INTEGER},
+      last_profit_time = #{record.lastProfitTime,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT},
+      ctime = #{record.ctime,jdbcType=INTEGER},
+      cctime = #{record.cctime,jdbcType=INTEGER},
+      sign = #{record.sign,jdbcType=INTEGER},
+      signtime = #{record.signtime,jdbcType=INTEGER},
+      isfx = #{record.isfx,jdbcType=BIT},
+      isfxgd = #{record.isfxgd,jdbcType=BIT},
+      total_buy = #{record.totalBuy,jdbcType=REAL},
+      total_yj = #{record.totalYj,jdbcType=REAL},
+      total_xxyj = #{record.totalXxyj,jdbcType=REAL},
+      total_xxlink = #{record.totalXxlink,jdbcType=INTEGER},
+      total_xxsub = #{record.totalXxsub,jdbcType=INTEGER},
+      total_xxunsub = #{record.totalXxunsub,jdbcType=INTEGER},
+      total_xxbuy = #{record.totalXxbuy,jdbcType=INTEGER},
+      employee = #{record.employee,jdbcType=BIT},
+      is_profited = #{record.isProfited,jdbcType=BIT},
+      change_rmember = #{record.changeRmember,jdbcType=BIT},
+      recommeded_at = #{record.recommededAt,jdbcType=INTEGER},
+      relations = #{record.relations,jdbcType=LONGVARCHAR},
+      ticket = #{record.ticket,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update s_member
+    set id = #{record.id,jdbcType=INTEGER},
+      r_member_id = #{record.rMemberId,jdbcType=INTEGER},
+      layer = #{record.layer,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=SMALLINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      trade_password = #{record.tradePassword,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DECIMAL},
+      expected_money = #{record.expectedMoney,jdbcType=DECIMAL},
+      fetching_money = #{record.fetchingMoney,jdbcType=DECIMAL},
+      frozen_money = #{record.frozenMoney,jdbcType=DECIMAL},
+      score = #{record.score,jdbcType=DECIMAL},
+      fetching_score = #{record.fetchingScore,jdbcType=DECIMAL},
+      sum_score = #{record.sumScore,jdbcType=DECIMAL},
+      coupon = #{record.coupon,jdbcType=DECIMAL},
+      wheel_times = #{record.wheelTimes,jdbcType=INTEGER},
+      exp = #{record.exp,jdbcType=INTEGER},
+      cur_exp = #{record.curExp,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=BIT},
+      subscribe_time = #{record.subscribeTime,jdbcType=INTEGER},
+      last_profit_time = #{record.lastProfitTime,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=BIT},
+      ctime = #{record.ctime,jdbcType=INTEGER},
+      cctime = #{record.cctime,jdbcType=INTEGER},
+      sign = #{record.sign,jdbcType=INTEGER},
+      signtime = #{record.signtime,jdbcType=INTEGER},
+      isfx = #{record.isfx,jdbcType=BIT},
+      isfxgd = #{record.isfxgd,jdbcType=BIT},
+      total_buy = #{record.totalBuy,jdbcType=REAL},
+      total_yj = #{record.totalYj,jdbcType=REAL},
+      total_xxyj = #{record.totalXxyj,jdbcType=REAL},
+      total_xxlink = #{record.totalXxlink,jdbcType=INTEGER},
+      total_xxsub = #{record.totalXxsub,jdbcType=INTEGER},
+      total_xxunsub = #{record.totalXxunsub,jdbcType=INTEGER},
+      total_xxbuy = #{record.totalXxbuy,jdbcType=INTEGER},
+      employee = #{record.employee,jdbcType=BIT},
+      is_profited = #{record.isProfited,jdbcType=BIT},
+      change_rmember = #{record.changeRmember,jdbcType=BIT},
+      recommeded_at = #{record.recommededAt,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.MemberWithBLOBs" >
+    update s_member
+    <set >
+      <if test="rMemberId != null" >
+        r_member_id = #{rMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="layer != null" >
+        layer = #{layer,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=SMALLINT},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tradePassword != null" >
+        trade_password = #{tradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="expectedMoney != null" >
+        expected_money = #{expectedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="fetchingMoney != null" >
+        fetching_money = #{fetchingMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenMoney != null" >
+        frozen_money = #{frozenMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="fetchingScore != null" >
+        fetching_score = #{fetchingScore,jdbcType=DECIMAL},
+      </if>
+      <if test="sumScore != null" >
+        sum_score = #{sumScore,jdbcType=DECIMAL},
+      </if>
+      <if test="coupon != null" >
+        coupon = #{coupon,jdbcType=DECIMAL},
+      </if>
+      <if test="wheelTimes != null" >
+        wheel_times = #{wheelTimes,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null" >
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="curExp != null" >
+        cur_exp = #{curExp,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null" >
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        subscribe = #{subscribe,jdbcType=BIT},
+      </if>
+      <if test="subscribeTime != null" >
+        subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastProfitTime != null" >
+        last_profit_time = #{lastProfitTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=INTEGER},
+      </if>
+      <if test="cctime != null" >
+        cctime = #{cctime,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=INTEGER},
+      </if>
+      <if test="signtime != null" >
+        signtime = #{signtime,jdbcType=INTEGER},
+      </if>
+      <if test="isfx != null" >
+        isfx = #{isfx,jdbcType=BIT},
+      </if>
+      <if test="isfxgd != null" >
+        isfxgd = #{isfxgd,jdbcType=BIT},
+      </if>
+      <if test="totalBuy != null" >
+        total_buy = #{totalBuy,jdbcType=REAL},
+      </if>
+      <if test="totalYj != null" >
+        total_yj = #{totalYj,jdbcType=REAL},
+      </if>
+      <if test="totalXxyj != null" >
+        total_xxyj = #{totalXxyj,jdbcType=REAL},
+      </if>
+      <if test="totalXxlink != null" >
+        total_xxlink = #{totalXxlink,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxsub != null" >
+        total_xxsub = #{totalXxsub,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxunsub != null" >
+        total_xxunsub = #{totalXxunsub,jdbcType=INTEGER},
+      </if>
+      <if test="totalXxbuy != null" >
+        total_xxbuy = #{totalXxbuy,jdbcType=INTEGER},
+      </if>
+      <if test="employee != null" >
+        employee = #{employee,jdbcType=BIT},
+      </if>
+      <if test="isProfited != null" >
+        is_profited = #{isProfited,jdbcType=BIT},
+      </if>
+      <if test="changeRmember != null" >
+        change_rmember = #{changeRmember,jdbcType=BIT},
+      </if>
+      <if test="recommededAt != null" >
+        recommeded_at = #{recommededAt,jdbcType=INTEGER},
+      </if>
+      <if test="relations != null" >
+        relations = #{relations,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ticket != null" >
+        ticket = #{ticket,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.model.MemberWithBLOBs" >
+    update s_member
+    set r_member_id = #{rMemberId,jdbcType=INTEGER},
+      layer = #{layer,jdbcType=INTEGER},
+      level = #{level,jdbcType=SMALLINT},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      trade_password = #{tradePassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      expected_money = #{expectedMoney,jdbcType=DECIMAL},
+      fetching_money = #{fetchingMoney,jdbcType=DECIMAL},
+      frozen_money = #{frozenMoney,jdbcType=DECIMAL},
+      score = #{score,jdbcType=DECIMAL},
+      fetching_score = #{fetchingScore,jdbcType=DECIMAL},
+      sum_score = #{sumScore,jdbcType=DECIMAL},
+      coupon = #{coupon,jdbcType=DECIMAL},
+      wheel_times = #{wheelTimes,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=INTEGER},
+      cur_exp = #{curExp,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      language = #{language,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=BIT},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      last_profit_time = #{lastProfitTime,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=INTEGER},
+      cctime = #{cctime,jdbcType=INTEGER},
+      sign = #{sign,jdbcType=INTEGER},
+      signtime = #{signtime,jdbcType=INTEGER},
+      isfx = #{isfx,jdbcType=BIT},
+      isfxgd = #{isfxgd,jdbcType=BIT},
+      total_buy = #{totalBuy,jdbcType=REAL},
+      total_yj = #{totalYj,jdbcType=REAL},
+      total_xxyj = #{totalXxyj,jdbcType=REAL},
+      total_xxlink = #{totalXxlink,jdbcType=INTEGER},
+      total_xxsub = #{totalXxsub,jdbcType=INTEGER},
+      total_xxunsub = #{totalXxunsub,jdbcType=INTEGER},
+      total_xxbuy = #{totalXxbuy,jdbcType=INTEGER},
+      employee = #{employee,jdbcType=BIT},
+      is_profited = #{isProfited,jdbcType=BIT},
+      change_rmember = #{changeRmember,jdbcType=BIT},
+      recommeded_at = #{recommededAt,jdbcType=INTEGER},
+      relations = #{relations,jdbcType=LONGVARCHAR},
+      ticket = #{ticket,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.Member" >
+    update s_member
+    set r_member_id = #{rMemberId,jdbcType=INTEGER},
+      layer = #{layer,jdbcType=INTEGER},
+      level = #{level,jdbcType=SMALLINT},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      trade_password = #{tradePassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      expected_money = #{expectedMoney,jdbcType=DECIMAL},
+      fetching_money = #{fetchingMoney,jdbcType=DECIMAL},
+      frozen_money = #{frozenMoney,jdbcType=DECIMAL},
+      score = #{score,jdbcType=DECIMAL},
+      fetching_score = #{fetchingScore,jdbcType=DECIMAL},
+      sum_score = #{sumScore,jdbcType=DECIMAL},
+      coupon = #{coupon,jdbcType=DECIMAL},
+      wheel_times = #{wheelTimes,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=INTEGER},
+      cur_exp = #{curExp,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      language = #{language,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=BIT},
+      subscribe_time = #{subscribeTime,jdbcType=INTEGER},
+      last_profit_time = #{lastProfitTime,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      ctime = #{ctime,jdbcType=INTEGER},
+      cctime = #{cctime,jdbcType=INTEGER},
+      sign = #{sign,jdbcType=INTEGER},
+      signtime = #{signtime,jdbcType=INTEGER},
+      isfx = #{isfx,jdbcType=BIT},
+      isfxgd = #{isfxgd,jdbcType=BIT},
+      total_buy = #{totalBuy,jdbcType=REAL},
+      total_yj = #{totalYj,jdbcType=REAL},
+      total_xxyj = #{totalXxyj,jdbcType=REAL},
+      total_xxlink = #{totalXxlink,jdbcType=INTEGER},
+      total_xxsub = #{totalXxsub,jdbcType=INTEGER},
+      total_xxunsub = #{totalXxunsub,jdbcType=INTEGER},
+      total_xxbuy = #{totalXxbuy,jdbcType=INTEGER},
+      employee = #{employee,jdbcType=BIT},
+      is_profited = #{isProfited,jdbcType=BIT},
+      change_rmember = #{changeRmember,jdbcType=BIT},
+      recommeded_at = #{recommededAt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getRelationsMember" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from s_member where find_in_set(#{memberId}, relations) and id <![CDATA[<>]]> #{memberId} and level in (2,3,4,5) and status = 1 order by relations
+  </select>
+
+  <select id="getMemberInfo" parameterType="java.lang.Integer" resultType="map">
+    select a.*,
+    case
+      when a.level=1 then "游客"
+      when a.level=2 then "会员"
+      when a.level=3 then "店长"
+      when a.level=4 then "区县渠道商"
+      when a.level=5 then "市代渠道商"
+      when a.level=6 then "省代渠道商"
+    end agent_area,
+    b.area_name, c.id r_id, c.name r_name, c.mobile r_mobile, b.create_time
+    from s_member a
+    left join s_area_agent b on a.id = b.member_id and b.status = 1
+    join s_member c on a.r_member_id = c.id
+    where a.id = #{memberId}
+  </select>
+
+  <select id="countDirectMember" resultType="java.lang.Integer">
+    select count(1) c from s_member
+    where r_member_id = #{memberId} and level = #{level} and status = 1 and left(from_unixtime(ctime), 7)=#{month}
+  </select>
+
+  <select id="countDirectAgent" resultType="java.lang.Integer">
+    select count(1) c from s_member a
+    join s_area_agent b on a.id = b.member_id
+    where a.r_member_id = #{memberId} and a.level = #{level} and a.status = 1 and left(from_unixtime(b.create_time), 7)=#{month} and b.status = 1
+  </select>
+</mapper>

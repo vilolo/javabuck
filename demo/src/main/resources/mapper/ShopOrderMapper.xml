@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.ShopOrderMapper">
+    <resultMap id="BaseResultMap" type="com.example.model.ShopOrder">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sn" property="sn" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL"/>
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER"/>
+        <result column="shipping_fee" property="shippingFee" jdbcType="DECIMAL"/>
+        <result column="pay_fee" property="payFee" jdbcType="DECIMAL"/>
+        <result column="discount" property="discount" jdbcType="DECIMAL"/>
+        <result column="pay_price" property="payPrice" jdbcType="DECIMAL"/>
+        <result column="pay_money" property="payMoney" jdbcType="DECIMAL"/>
+        <result column="pay_score" property="payScore" jdbcType="DECIMAL"/>
+        <result column="pay_coupon" property="payCoupon" jdbcType="DECIMAL"/>
+        <result column="is_pay" property="isPay" jdbcType="BIT"/>
+        <result column="pay_type" property="payType" jdbcType="VARCHAR"/>
+        <result column="pay_time" property="payTime" jdbcType="INTEGER"/>
+        <result column="transaction_id" property="transactionId" jdbcType="VARCHAR"/>
+        <result column="profit" property="profit" jdbcType="REAL"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="score" property="score" jdbcType="DECIMAL"/>
+        <result column="check_status" property="checkStatus" jdbcType="BIT"/>
+        <result column="profit_status" property="profitStatus" jdbcType="BIT"/>
+        <result column="notice_status" property="noticeStatus" jdbcType="BIT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="msg" property="msg" jdbcType="VARCHAR"/>
+        <result column="g_id" property="gId" jdbcType="INTEGER"/>
+        <result column="s_id" property="sId" jdbcType="INTEGER"/>
+        <result column="d_id" property="dId" jdbcType="INTEGER"/>
+        <result column="q_id" property="qId" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="consignee" property="consignee" jdbcType="VARCHAR"/>
+        <result column="express" property="express" jdbcType="SMALLINT"/>
+        <result column="express_sn" property="expressSn" jdbcType="VARCHAR"/>
+        <result column="shipper_code" property="shipperCode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="INTEGER"/>
+        <result column="delivery_time" property="deliveryTime" jdbcType="INTEGER"/>
+        <result column="complete_time" property="completeTime" jdbcType="INTEGER"/>
+        <result column="profit_time" property="profitTime" jdbcType="INTEGER"/>
+        <result column="notice_time" property="noticeTime" jdbcType="INTEGER"/>
+        <result column="change_time" property="changeTime" jdbcType="INTEGER"/>
+        <result column="change_msg" property="changeMsg" jdbcType="VARCHAR"/>
+        <result column="change_admin" property="changeAdmin" jdbcType="VARCHAR"/>
+        <result column="close_time" property="closeTime" jdbcType="INTEGER"/>
+        <result column="close_msg" property="closeMsg" jdbcType="VARCHAR"/>
+        <result column="close_admin" property="closeAdmin" jdbcType="VARCHAR"/>
+        <result column="refund_apply_time" property="refundApplyTime" jdbcType="INTEGER"/>
+        <result column="refund_time" property="refundTime" jdbcType="INTEGER"/>
+        <result column="refund_price" property="refundPrice" jdbcType="DECIMAL"/>
+        <result column="refund_express" property="refundExpress" jdbcType="VARCHAR"/>
+        <result column="refund_express_no" property="refundExpressNo" jdbcType="VARCHAR"/>
+        <result column="refund_msg" property="refundMsg" jdbcType="VARCHAR"/>
+        <result column="refund_admin" property="refundAdmin" jdbcType="VARCHAR"/>
+        <result column="goods_level" property="goodsLevel" jdbcType="BIT"/>
+        <result column="is_update_order" property="isUpdateOrder" jdbcType="BIT"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.example.model.ShopOrder" extends="BaseResultMap">
+        <result column="items" property="items" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, sn, member_id, price, goods_price, goods_num, shipping_fee, pay_fee, discount, 
+    pay_price, pay_money, pay_score, pay_coupon, is_pay, pay_type, pay_time, transaction_id, 
+    profit, status, score, check_status, profit_status, notice_status, remark, msg, g_id, 
+    s_id, d_id, q_id, address, phone, consignee, express, express_sn, shipper_code, create_time, 
+    delivery_time, complete_time, profit_time, notice_time, change_time, change_msg, 
+    change_admin, close_time, close_msg, close_admin, refund_apply_time, refund_time, 
+    refund_price, refund_express, refund_express_no, refund_msg, refund_admin, goods_level, 
+    is_update_order
+  </sql>
+    <sql id="Blob_Column_List">
+    items
+  </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+            parameterType="com.example.model.ShopOrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from s_shop_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.model.ShopOrderExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from s_shop_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from s_shop_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_shop_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.example.model.ShopOrderExample">
+        delete from s_shop_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.example.model.ShopOrder">
+    insert into s_shop_order (id, sn, member_id, 
+      price, goods_price, goods_num, 
+      shipping_fee, pay_fee, discount, 
+      pay_price, pay_money, pay_score, 
+      pay_coupon, is_pay, pay_type, 
+      pay_time, transaction_id, profit, 
+      status, score, check_status, 
+      profit_status, notice_status, remark, 
+      msg, g_id, s_id, d_id, 
+      q_id, address, phone, 
+      consignee, express, express_sn, 
+      shipper_code, create_time, delivery_time, 
+      complete_time, profit_time, notice_time, 
+      change_time, change_msg, change_admin, 
+      close_time, close_msg, close_admin, 
+      refund_apply_time, refund_time, refund_price, 
+      refund_express, refund_express_no, refund_msg, 
+      refund_admin, goods_level, is_update_order, 
+      items)
+    values (#{id,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{goodsPrice,jdbcType=DECIMAL}, #{goodsNum,jdbcType=INTEGER}, 
+      #{shippingFee,jdbcType=DECIMAL}, #{payFee,jdbcType=DECIMAL}, #{discount,jdbcType=DECIMAL}, 
+      #{payPrice,jdbcType=DECIMAL}, #{payMoney,jdbcType=DECIMAL}, #{payScore,jdbcType=DECIMAL}, 
+      #{payCoupon,jdbcType=DECIMAL}, #{isPay,jdbcType=BIT}, #{payType,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=INTEGER}, #{transactionId,jdbcType=VARCHAR}, #{profit,jdbcType=REAL}, 
+      #{status,jdbcType=TINYINT}, #{score,jdbcType=DECIMAL}, #{checkStatus,jdbcType=BIT}, 
+      #{profitStatus,jdbcType=BIT}, #{noticeStatus,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{gId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, #{dId,jdbcType=INTEGER}, 
+      #{qId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{consignee,jdbcType=VARCHAR}, #{express,jdbcType=SMALLINT}, #{expressSn,jdbcType=VARCHAR}, 
+      #{shipperCode,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{deliveryTime,jdbcType=INTEGER}, 
+      #{completeTime,jdbcType=INTEGER}, #{profitTime,jdbcType=INTEGER}, #{noticeTime,jdbcType=INTEGER}, 
+      #{changeTime,jdbcType=INTEGER}, #{changeMsg,jdbcType=VARCHAR}, #{changeAdmin,jdbcType=VARCHAR}, 
+      #{closeTime,jdbcType=INTEGER}, #{closeMsg,jdbcType=VARCHAR}, #{closeAdmin,jdbcType=VARCHAR}, 
+      #{refundApplyTime,jdbcType=INTEGER}, #{refundTime,jdbcType=INTEGER}, #{refundPrice,jdbcType=DECIMAL}, 
+      #{refundExpress,jdbcType=VARCHAR}, #{refundExpressNo,jdbcType=VARCHAR}, #{refundMsg,jdbcType=VARCHAR}, 
+      #{refundAdmin,jdbcType=VARCHAR}, #{goodsLevel,jdbcType=BIT}, #{isUpdateOrder,jdbcType=BIT}, 
+      #{items,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.model.ShopOrder">
+        insert into s_shop_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sn != null">
+                sn,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+            <if test="goodsNum != null">
+                goods_num,
+            </if>
+            <if test="shippingFee != null">
+                shipping_fee,
+            </if>
+            <if test="payFee != null">
+                pay_fee,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="payPrice != null">
+                pay_price,
+            </if>
+            <if test="payMoney != null">
+                pay_money,
+            </if>
+            <if test="payScore != null">
+                pay_score,
+            </if>
+            <if test="payCoupon != null">
+                pay_coupon,
+            </if>
+            <if test="isPay != null">
+                is_pay,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="payTime != null">
+                pay_time,
+            </if>
+            <if test="transactionId != null">
+                transaction_id,
+            </if>
+            <if test="profit != null">
+                profit,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="checkStatus != null">
+                check_status,
+            </if>
+            <if test="profitStatus != null">
+                profit_status,
+            </if>
+            <if test="noticeStatus != null">
+                notice_status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="msg != null">
+                msg,
+            </if>
+            <if test="gId != null">
+                g_id,
+            </if>
+            <if test="sId != null">
+                s_id,
+            </if>
+            <if test="dId != null">
+                d_id,
+            </if>
+            <if test="qId != null">
+                q_id,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="consignee != null">
+                consignee,
+            </if>
+            <if test="express != null">
+                express,
+            </if>
+            <if test="expressSn != null">
+                express_sn,
+            </if>
+            <if test="shipperCode != null">
+                shipper_code,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time,
+            </if>
+            <if test="completeTime != null">
+                complete_time,
+            </if>
+            <if test="profitTime != null">
+                profit_time,
+            </if>
+            <if test="noticeTime != null">
+                notice_time,
+            </if>
+            <if test="changeTime != null">
+                change_time,
+            </if>
+            <if test="changeMsg != null">
+                change_msg,
+            </if>
+            <if test="changeAdmin != null">
+                change_admin,
+            </if>
+            <if test="closeTime != null">
+                close_time,
+            </if>
+            <if test="closeMsg != null">
+                close_msg,
+            </if>
+            <if test="closeAdmin != null">
+                close_admin,
+            </if>
+            <if test="refundApplyTime != null">
+                refund_apply_time,
+            </if>
+            <if test="refundTime != null">
+                refund_time,
+            </if>
+            <if test="refundPrice != null">
+                refund_price,
+            </if>
+            <if test="refundExpress != null">
+                refund_express,
+            </if>
+            <if test="refundExpressNo != null">
+                refund_express_no,
+            </if>
+            <if test="refundMsg != null">
+                refund_msg,
+            </if>
+            <if test="refundAdmin != null">
+                refund_admin,
+            </if>
+            <if test="goodsLevel != null">
+                goods_level,
+            </if>
+            <if test="isUpdateOrder != null">
+                is_update_order,
+            </if>
+            <if test="items != null">
+                items,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sn != null">
+                #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsNum != null">
+                #{goodsNum,jdbcType=INTEGER},
+            </if>
+            <if test="shippingFee != null">
+                #{shippingFee,jdbcType=DECIMAL},
+            </if>
+            <if test="payFee != null">
+                #{payFee,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=DECIMAL},
+            </if>
+            <if test="payPrice != null">
+                #{payPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="payMoney != null">
+                #{payMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="payScore != null">
+                #{payScore,jdbcType=DECIMAL},
+            </if>
+            <if test="payCoupon != null">
+                #{payCoupon,jdbcType=DECIMAL},
+            </if>
+            <if test="isPay != null">
+                #{isPay,jdbcType=BIT},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="payTime != null">
+                #{payTime,jdbcType=INTEGER},
+            </if>
+            <if test="transactionId != null">
+                #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="profit != null">
+                #{profit,jdbcType=REAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=DECIMAL},
+            </if>
+            <if test="checkStatus != null">
+                #{checkStatus,jdbcType=BIT},
+            </if>
+            <if test="profitStatus != null">
+                #{profitStatus,jdbcType=BIT},
+            </if>
+            <if test="noticeStatus != null">
+                #{noticeStatus,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="msg != null">
+                #{msg,jdbcType=VARCHAR},
+            </if>
+            <if test="gId != null">
+                #{gId,jdbcType=INTEGER},
+            </if>
+            <if test="sId != null">
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="dId != null">
+                #{dId,jdbcType=INTEGER},
+            </if>
+            <if test="qId != null">
+                #{qId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="consignee != null">
+                #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="express != null">
+                #{express,jdbcType=SMALLINT},
+            </if>
+            <if test="expressSn != null">
+                #{expressSn,jdbcType=VARCHAR},
+            </if>
+            <if test="shipperCode != null">
+                #{shipperCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="deliveryTime != null">
+                #{deliveryTime,jdbcType=INTEGER},
+            </if>
+            <if test="completeTime != null">
+                #{completeTime,jdbcType=INTEGER},
+            </if>
+            <if test="profitTime != null">
+                #{profitTime,jdbcType=INTEGER},
+            </if>
+            <if test="noticeTime != null">
+                #{noticeTime,jdbcType=INTEGER},
+            </if>
+            <if test="changeTime != null">
+                #{changeTime,jdbcType=INTEGER},
+            </if>
+            <if test="changeMsg != null">
+                #{changeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="changeAdmin != null">
+                #{changeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="closeTime != null">
+                #{closeTime,jdbcType=INTEGER},
+            </if>
+            <if test="closeMsg != null">
+                #{closeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="closeAdmin != null">
+                #{closeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="refundApplyTime != null">
+                #{refundApplyTime,jdbcType=INTEGER},
+            </if>
+            <if test="refundTime != null">
+                #{refundTime,jdbcType=INTEGER},
+            </if>
+            <if test="refundPrice != null">
+                #{refundPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="refundExpress != null">
+                #{refundExpress,jdbcType=VARCHAR},
+            </if>
+            <if test="refundExpressNo != null">
+                #{refundExpressNo,jdbcType=VARCHAR},
+            </if>
+            <if test="refundMsg != null">
+                #{refundMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="refundAdmin != null">
+                #{refundAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsLevel != null">
+                #{goodsLevel,jdbcType=BIT},
+            </if>
+            <if test="isUpdateOrder != null">
+                #{isUpdateOrder,jdbcType=BIT},
+            </if>
+            <if test="items != null">
+                #{items,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.example.model.ShopOrderExample" resultType="java.lang.Integer">
+        select count(*) from s_shop_order
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update s_shop_order
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.sn != null">
+                sn = #{record.sn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.memberId != null">
+                member_id = #{record.memberId,jdbcType=INTEGER},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DECIMAL},
+            </if>
+            <if test="record.goodsPrice != null">
+                goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.goodsNum != null">
+                goods_num = #{record.goodsNum,jdbcType=INTEGER},
+            </if>
+            <if test="record.shippingFee != null">
+                shipping_fee = #{record.shippingFee,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payFee != null">
+                pay_fee = #{record.payFee,jdbcType=DECIMAL},
+            </if>
+            <if test="record.discount != null">
+                discount = #{record.discount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payPrice != null">
+                pay_price = #{record.payPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payMoney != null">
+                pay_money = #{record.payMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payScore != null">
+                pay_score = #{record.payScore,jdbcType=DECIMAL},
+            </if>
+            <if test="record.payCoupon != null">
+                pay_coupon = #{record.payCoupon,jdbcType=DECIMAL},
+            </if>
+            <if test="record.isPay != null">
+                is_pay = #{record.isPay,jdbcType=BIT},
+            </if>
+            <if test="record.payType != null">
+                pay_type = #{record.payType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.payTime != null">
+                pay_time = #{record.payTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.transactionId != null">
+                transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.profit != null">
+                profit = #{record.profit,jdbcType=REAL},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.score != null">
+                score = #{record.score,jdbcType=DECIMAL},
+            </if>
+            <if test="record.checkStatus != null">
+                check_status = #{record.checkStatus,jdbcType=BIT},
+            </if>
+            <if test="record.profitStatus != null">
+                profit_status = #{record.profitStatus,jdbcType=BIT},
+            </if>
+            <if test="record.noticeStatus != null">
+                notice_status = #{record.noticeStatus,jdbcType=BIT},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.msg != null">
+                msg = #{record.msg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gId != null">
+                g_id = #{record.gId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sId != null">
+                s_id = #{record.sId,jdbcType=INTEGER},
+            </if>
+            <if test="record.dId != null">
+                d_id = #{record.dId,jdbcType=INTEGER},
+            </if>
+            <if test="record.qId != null">
+                q_id = #{record.qId,jdbcType=INTEGER},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null">
+                phone = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.consignee != null">
+                consignee = #{record.consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="record.express != null">
+                express = #{record.express,jdbcType=SMALLINT},
+            </if>
+            <if test="record.expressSn != null">
+                express_sn = #{record.expressSn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shipperCode != null">
+                shipper_code = #{record.shipperCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.deliveryTime != null">
+                delivery_time = #{record.deliveryTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.completeTime != null">
+                complete_time = #{record.completeTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.profitTime != null">
+                profit_time = #{record.profitTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.noticeTime != null">
+                notice_time = #{record.noticeTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.changeTime != null">
+                change_time = #{record.changeTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.changeMsg != null">
+                change_msg = #{record.changeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.changeAdmin != null">
+                change_admin = #{record.changeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="record.closeTime != null">
+                close_time = #{record.closeTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.closeMsg != null">
+                close_msg = #{record.closeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.closeAdmin != null">
+                close_admin = #{record.closeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="record.refundApplyTime != null">
+                refund_apply_time = #{record.refundApplyTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.refundTime != null">
+                refund_time = #{record.refundTime,jdbcType=INTEGER},
+            </if>
+            <if test="record.refundPrice != null">
+                refund_price = #{record.refundPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="record.refundExpress != null">
+                refund_express = #{record.refundExpress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.refundExpressNo != null">
+                refund_express_no = #{record.refundExpressNo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.refundMsg != null">
+                refund_msg = #{record.refundMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="record.refundAdmin != null">
+                refund_admin = #{record.refundAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="record.goodsLevel != null">
+                goods_level = #{record.goodsLevel,jdbcType=BIT},
+            </if>
+            <if test="record.isUpdateOrder != null">
+                is_update_order = #{record.isUpdateOrder,jdbcType=BIT},
+            </if>
+            <if test="record.items != null">
+                items = #{record.items,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update s_shop_order
+        set id = #{record.id,jdbcType=INTEGER},
+        sn = #{record.sn,jdbcType=VARCHAR},
+        member_id = #{record.memberId,jdbcType=INTEGER},
+        price = #{record.price,jdbcType=DECIMAL},
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+        goods_num = #{record.goodsNum,jdbcType=INTEGER},
+        shipping_fee = #{record.shippingFee,jdbcType=DECIMAL},
+        pay_fee = #{record.payFee,jdbcType=DECIMAL},
+        discount = #{record.discount,jdbcType=DECIMAL},
+        pay_price = #{record.payPrice,jdbcType=DECIMAL},
+        pay_money = #{record.payMoney,jdbcType=DECIMAL},
+        pay_score = #{record.payScore,jdbcType=DECIMAL},
+        pay_coupon = #{record.payCoupon,jdbcType=DECIMAL},
+        is_pay = #{record.isPay,jdbcType=BIT},
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+        pay_time = #{record.payTime,jdbcType=INTEGER},
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+        profit = #{record.profit,jdbcType=REAL},
+        status = #{record.status,jdbcType=TINYINT},
+        score = #{record.score,jdbcType=DECIMAL},
+        check_status = #{record.checkStatus,jdbcType=BIT},
+        profit_status = #{record.profitStatus,jdbcType=BIT},
+        notice_status = #{record.noticeStatus,jdbcType=BIT},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        msg = #{record.msg,jdbcType=VARCHAR},
+        g_id = #{record.gId,jdbcType=INTEGER},
+        s_id = #{record.sId,jdbcType=INTEGER},
+        d_id = #{record.dId,jdbcType=INTEGER},
+        q_id = #{record.qId,jdbcType=INTEGER},
+        address = #{record.address,jdbcType=VARCHAR},
+        phone = #{record.phone,jdbcType=VARCHAR},
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+        express = #{record.express,jdbcType=SMALLINT},
+        express_sn = #{record.expressSn,jdbcType=VARCHAR},
+        shipper_code = #{record.shipperCode,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=INTEGER},
+        delivery_time = #{record.deliveryTime,jdbcType=INTEGER},
+        complete_time = #{record.completeTime,jdbcType=INTEGER},
+        profit_time = #{record.profitTime,jdbcType=INTEGER},
+        notice_time = #{record.noticeTime,jdbcType=INTEGER},
+        change_time = #{record.changeTime,jdbcType=INTEGER},
+        change_msg = #{record.changeMsg,jdbcType=VARCHAR},
+        change_admin = #{record.changeAdmin,jdbcType=VARCHAR},
+        close_time = #{record.closeTime,jdbcType=INTEGER},
+        close_msg = #{record.closeMsg,jdbcType=VARCHAR},
+        close_admin = #{record.closeAdmin,jdbcType=VARCHAR},
+        refund_apply_time = #{record.refundApplyTime,jdbcType=INTEGER},
+        refund_time = #{record.refundTime,jdbcType=INTEGER},
+        refund_price = #{record.refundPrice,jdbcType=DECIMAL},
+        refund_express = #{record.refundExpress,jdbcType=VARCHAR},
+        refund_express_no = #{record.refundExpressNo,jdbcType=VARCHAR},
+        refund_msg = #{record.refundMsg,jdbcType=VARCHAR},
+        refund_admin = #{record.refundAdmin,jdbcType=VARCHAR},
+        goods_level = #{record.goodsLevel,jdbcType=BIT},
+        is_update_order = #{record.isUpdateOrder,jdbcType=BIT},
+        items = #{record.items,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update s_shop_order
+        set id = #{record.id,jdbcType=INTEGER},
+        sn = #{record.sn,jdbcType=VARCHAR},
+        member_id = #{record.memberId,jdbcType=INTEGER},
+        price = #{record.price,jdbcType=DECIMAL},
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+        goods_num = #{record.goodsNum,jdbcType=INTEGER},
+        shipping_fee = #{record.shippingFee,jdbcType=DECIMAL},
+        pay_fee = #{record.payFee,jdbcType=DECIMAL},
+        discount = #{record.discount,jdbcType=DECIMAL},
+        pay_price = #{record.payPrice,jdbcType=DECIMAL},
+        pay_money = #{record.payMoney,jdbcType=DECIMAL},
+        pay_score = #{record.payScore,jdbcType=DECIMAL},
+        pay_coupon = #{record.payCoupon,jdbcType=DECIMAL},
+        is_pay = #{record.isPay,jdbcType=BIT},
+        pay_type = #{record.payType,jdbcType=VARCHAR},
+        pay_time = #{record.payTime,jdbcType=INTEGER},
+        transaction_id = #{record.transactionId,jdbcType=VARCHAR},
+        profit = #{record.profit,jdbcType=REAL},
+        status = #{record.status,jdbcType=TINYINT},
+        score = #{record.score,jdbcType=DECIMAL},
+        check_status = #{record.checkStatus,jdbcType=BIT},
+        profit_status = #{record.profitStatus,jdbcType=BIT},
+        notice_status = #{record.noticeStatus,jdbcType=BIT},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        msg = #{record.msg,jdbcType=VARCHAR},
+        g_id = #{record.gId,jdbcType=INTEGER},
+        s_id = #{record.sId,jdbcType=INTEGER},
+        d_id = #{record.dId,jdbcType=INTEGER},
+        q_id = #{record.qId,jdbcType=INTEGER},
+        address = #{record.address,jdbcType=VARCHAR},
+        phone = #{record.phone,jdbcType=VARCHAR},
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+        express = #{record.express,jdbcType=SMALLINT},
+        express_sn = #{record.expressSn,jdbcType=VARCHAR},
+        shipper_code = #{record.shipperCode,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=INTEGER},
+        delivery_time = #{record.deliveryTime,jdbcType=INTEGER},
+        complete_time = #{record.completeTime,jdbcType=INTEGER},
+        profit_time = #{record.profitTime,jdbcType=INTEGER},
+        notice_time = #{record.noticeTime,jdbcType=INTEGER},
+        change_time = #{record.changeTime,jdbcType=INTEGER},
+        change_msg = #{record.changeMsg,jdbcType=VARCHAR},
+        change_admin = #{record.changeAdmin,jdbcType=VARCHAR},
+        close_time = #{record.closeTime,jdbcType=INTEGER},
+        close_msg = #{record.closeMsg,jdbcType=VARCHAR},
+        close_admin = #{record.closeAdmin,jdbcType=VARCHAR},
+        refund_apply_time = #{record.refundApplyTime,jdbcType=INTEGER},
+        refund_time = #{record.refundTime,jdbcType=INTEGER},
+        refund_price = #{record.refundPrice,jdbcType=DECIMAL},
+        refund_express = #{record.refundExpress,jdbcType=VARCHAR},
+        refund_express_no = #{record.refundExpressNo,jdbcType=VARCHAR},
+        refund_msg = #{record.refundMsg,jdbcType=VARCHAR},
+        refund_admin = #{record.refundAdmin,jdbcType=VARCHAR},
+        goods_level = #{record.goodsLevel,jdbcType=BIT},
+        is_update_order = #{record.isUpdateOrder,jdbcType=BIT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.model.ShopOrder">
+        update s_shop_order
+        <set>
+            <if test="sn != null">
+                sn = #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="memberId != null">
+                member_id = #{memberId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="goodsNum != null">
+                goods_num = #{goodsNum,jdbcType=INTEGER},
+            </if>
+            <if test="shippingFee != null">
+                shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+            </if>
+            <if test="payFee != null">
+                pay_fee = #{payFee,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=DECIMAL},
+            </if>
+            <if test="payPrice != null">
+                pay_price = #{payPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="payMoney != null">
+                pay_money = #{payMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="payScore != null">
+                pay_score = #{payScore,jdbcType=DECIMAL},
+            </if>
+            <if test="payCoupon != null">
+                pay_coupon = #{payCoupon,jdbcType=DECIMAL},
+            </if>
+            <if test="isPay != null">
+                is_pay = #{isPay,jdbcType=BIT},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=VARCHAR},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=INTEGER},
+            </if>
+            <if test="transactionId != null">
+                transaction_id = #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="profit != null">
+                profit = #{profit,jdbcType=REAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=DECIMAL},
+            </if>
+            <if test="checkStatus != null">
+                check_status = #{checkStatus,jdbcType=BIT},
+            </if>
+            <if test="profitStatus != null">
+                profit_status = #{profitStatus,jdbcType=BIT},
+            </if>
+            <if test="noticeStatus != null">
+                notice_status = #{noticeStatus,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="msg != null">
+                msg = #{msg,jdbcType=VARCHAR},
+            </if>
+            <if test="gId != null">
+                g_id = #{gId,jdbcType=INTEGER},
+            </if>
+            <if test="sId != null">
+                s_id = #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="dId != null">
+                d_id = #{dId,jdbcType=INTEGER},
+            </if>
+            <if test="qId != null">
+                q_id = #{qId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="consignee != null">
+                consignee = #{consignee,jdbcType=VARCHAR},
+            </if>
+            <if test="express != null">
+                express = #{express,jdbcType=SMALLINT},
+            </if>
+            <if test="expressSn != null">
+                express_sn = #{expressSn,jdbcType=VARCHAR},
+            </if>
+            <if test="shipperCode != null">
+                shipper_code = #{shipperCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime,jdbcType=INTEGER},
+            </if>
+            <if test="completeTime != null">
+                complete_time = #{completeTime,jdbcType=INTEGER},
+            </if>
+            <if test="profitTime != null">
+                profit_time = #{profitTime,jdbcType=INTEGER},
+            </if>
+            <if test="noticeTime != null">
+                notice_time = #{noticeTime,jdbcType=INTEGER},
+            </if>
+            <if test="changeTime != null">
+                change_time = #{changeTime,jdbcType=INTEGER},
+            </if>
+            <if test="changeMsg != null">
+                change_msg = #{changeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="changeAdmin != null">
+                change_admin = #{changeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="closeTime != null">
+                close_time = #{closeTime,jdbcType=INTEGER},
+            </if>
+            <if test="closeMsg != null">
+                close_msg = #{closeMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="closeAdmin != null">
+                close_admin = #{closeAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="refundApplyTime != null">
+                refund_apply_time = #{refundApplyTime,jdbcType=INTEGER},
+            </if>
+            <if test="refundTime != null">
+                refund_time = #{refundTime,jdbcType=INTEGER},
+            </if>
+            <if test="refundPrice != null">
+                refund_price = #{refundPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="refundExpress != null">
+                refund_express = #{refundExpress,jdbcType=VARCHAR},
+            </if>
+            <if test="refundExpressNo != null">
+                refund_express_no = #{refundExpressNo,jdbcType=VARCHAR},
+            </if>
+            <if test="refundMsg != null">
+                refund_msg = #{refundMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="refundAdmin != null">
+                refund_admin = #{refundAdmin,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsLevel != null">
+                goods_level = #{goodsLevel,jdbcType=BIT},
+            </if>
+            <if test="isUpdateOrder != null">
+                is_update_order = #{isUpdateOrder,jdbcType=BIT},
+            </if>
+            <if test="items != null">
+                items = #{items,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.model.ShopOrder">
+    update s_shop_order
+    set sn = #{sn,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+      pay_fee = #{payFee,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      pay_price = #{payPrice,jdbcType=DECIMAL},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      pay_score = #{payScore,jdbcType=DECIMAL},
+      pay_coupon = #{payCoupon,jdbcType=DECIMAL},
+      is_pay = #{isPay,jdbcType=BIT},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=INTEGER},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      profit = #{profit,jdbcType=REAL},
+      status = #{status,jdbcType=TINYINT},
+      score = #{score,jdbcType=DECIMAL},
+      check_status = #{checkStatus,jdbcType=BIT},
+      profit_status = #{profitStatus,jdbcType=BIT},
+      notice_status = #{noticeStatus,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      g_id = #{gId,jdbcType=INTEGER},
+      s_id = #{sId,jdbcType=INTEGER},
+      d_id = #{dId,jdbcType=INTEGER},
+      q_id = #{qId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      express = #{express,jdbcType=SMALLINT},
+      express_sn = #{expressSn,jdbcType=VARCHAR},
+      shipper_code = #{shipperCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      delivery_time = #{deliveryTime,jdbcType=INTEGER},
+      complete_time = #{completeTime,jdbcType=INTEGER},
+      profit_time = #{profitTime,jdbcType=INTEGER},
+      notice_time = #{noticeTime,jdbcType=INTEGER},
+      change_time = #{changeTime,jdbcType=INTEGER},
+      change_msg = #{changeMsg,jdbcType=VARCHAR},
+      change_admin = #{changeAdmin,jdbcType=VARCHAR},
+      close_time = #{closeTime,jdbcType=INTEGER},
+      close_msg = #{closeMsg,jdbcType=VARCHAR},
+      close_admin = #{closeAdmin,jdbcType=VARCHAR},
+      refund_apply_time = #{refundApplyTime,jdbcType=INTEGER},
+      refund_time = #{refundTime,jdbcType=INTEGER},
+      refund_price = #{refundPrice,jdbcType=DECIMAL},
+      refund_express = #{refundExpress,jdbcType=VARCHAR},
+      refund_express_no = #{refundExpressNo,jdbcType=VARCHAR},
+      refund_msg = #{refundMsg,jdbcType=VARCHAR},
+      refund_admin = #{refundAdmin,jdbcType=VARCHAR},
+      goods_level = #{goodsLevel,jdbcType=BIT},
+      is_update_order = #{isUpdateOrder,jdbcType=BIT},
+      items = #{items,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.model.ShopOrder">
+    update s_shop_order
+    set sn = #{sn,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      shipping_fee = #{shippingFee,jdbcType=DECIMAL},
+      pay_fee = #{payFee,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      pay_price = #{payPrice,jdbcType=DECIMAL},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      pay_score = #{payScore,jdbcType=DECIMAL},
+      pay_coupon = #{payCoupon,jdbcType=DECIMAL},
+      is_pay = #{isPay,jdbcType=BIT},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=INTEGER},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      profit = #{profit,jdbcType=REAL},
+      status = #{status,jdbcType=TINYINT},
+      score = #{score,jdbcType=DECIMAL},
+      check_status = #{checkStatus,jdbcType=BIT},
+      profit_status = #{profitStatus,jdbcType=BIT},
+      notice_status = #{noticeStatus,jdbcType=BIT},
+      remark = #{remark,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      g_id = #{gId,jdbcType=INTEGER},
+      s_id = #{sId,jdbcType=INTEGER},
+      d_id = #{dId,jdbcType=INTEGER},
+      q_id = #{qId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      express = #{express,jdbcType=SMALLINT},
+      express_sn = #{expressSn,jdbcType=VARCHAR},
+      shipper_code = #{shipperCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      delivery_time = #{deliveryTime,jdbcType=INTEGER},
+      complete_time = #{completeTime,jdbcType=INTEGER},
+      profit_time = #{profitTime,jdbcType=INTEGER},
+      notice_time = #{noticeTime,jdbcType=INTEGER},
+      change_time = #{changeTime,jdbcType=INTEGER},
+      change_msg = #{changeMsg,jdbcType=VARCHAR},
+      change_admin = #{changeAdmin,jdbcType=VARCHAR},
+      close_time = #{closeTime,jdbcType=INTEGER},
+      close_msg = #{closeMsg,jdbcType=VARCHAR},
+      close_admin = #{closeAdmin,jdbcType=VARCHAR},
+      refund_apply_time = #{refundApplyTime,jdbcType=INTEGER},
+      refund_time = #{refundTime,jdbcType=INTEGER},
+      refund_price = #{refundPrice,jdbcType=DECIMAL},
+      refund_express = #{refundExpress,jdbcType=VARCHAR},
+      refund_express_no = #{refundExpressNo,jdbcType=VARCHAR},
+      refund_msg = #{refundMsg,jdbcType=VARCHAR},
+      refund_admin = #{refundAdmin,jdbcType=VARCHAR},
+      goods_level = #{goodsLevel,jdbcType=BIT},
+      is_update_order = #{isUpdateOrder,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getShopOrderByMonth" resultMap="BaseResultMap">
+    select a.id, a.member_id, 0 remark, a.pay_money, a.items, a.goods_num from s_shop_order a
+    left join s_profit_log b on a.id = b.from_order_id
+    where a.member_id = #{memberId} and a.`status` IN (2,3,4,5) and left(FROM_UNIXTIME(a.create_time), 7) = #{month}
+    and ( b.id is null or b.from_member_level <![CDATA[>]]> 3)
+    group by a.id
+  </select>
+
+    <select id="getDirectOrder" resultMap="BaseResultMap">
+    select b.id, a.from_member_id member_id,
+    case
+      when a.remark="会员推荐佣金" then 1   -- 会员业绩单
+      when a.member_level=3 then 2          -- 店长业绩单
+      when a.member_level>3 then 3          -- 渠道商业绩单
+    end remark, b.pay_money, b.items, b.goods_num, b.sn
+    from s_profit_log a
+    join s_shop_order b on a.from_order_id = b.id
+    where a.member_id = #{memberId} and (a.status = 1 or a.status = 2)
+    and (
+        (a.money = b.pay_price*0.05 and a.member_level = 2) or -- 会员自己给自己下单,渠道商下会员下单，店长下会员下单，会员下游客下单
+        a.money = b.pay_price*0.1     -- 渠道商自己下单，店长自己下单，渠道商下游客下单，店长下游客下单
+    )
+    and left(FROM_UNIXTIME(b.create_time), 7) = #{month} and a.type = 1
+  </select>
+</mapper>
