@@ -148,7 +148,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
         <if test="orderByClause != null">
-            order by ${orderByClause}
+            orderEnpty by ${orderByClause}
         </if>
     </select>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.model.ShopOrderExample">
@@ -162,7 +162,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
         <if test="orderByClause != null">
-            order by ${orderByClause}
+            orderEnpty by ${orderByClause}
         </if>
     </select>
     <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
@@ -1180,7 +1180,7 @@
     where a.member_id = #{memberId} and (a.status = 1 or a.status = 2)
     and (
         (a.money = b.pay_price*0.05 and a.member_level = 2) or -- 会员自己给自己下单,渠道商下会员下单，店长下会员下单，会员下游客下单
-        a.money = b.pay_price*0.1     -- 渠道商自己下单，店长自己下单，渠道商下游客下单，店长下游客下单
+        a.money > b.pay_price*0.09     -- 渠道商自己下单，店长自己下单，渠道商下游客下单，店长下游客下单
     )
     and left(FROM_UNIXTIME(b.create_time), 7) = #{month} and a.type = 1
   </select>

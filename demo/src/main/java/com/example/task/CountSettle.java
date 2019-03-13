@@ -48,7 +48,7 @@ public class CountSettle {
         List<AreaAgent> list = areaAgentMapper.selectByExample(areaAgentExample);
 
         //查询分月：1月，2月
-        String[] m = new String[]{"2019-01", "2019-02"};
+        String[] m = new String[]{"2019-03"};
 
         for (String mon : m){
             agentOrderList = new HashMap<>();
@@ -98,6 +98,10 @@ public class CountSettle {
                 int xiaomo1paicha2=0;
                 //购买1小墨（1988）
                 int xiaomo=0;
+                //新套餐 一箱小墨
+                int xiaomo1boxful=0;
+                //新套餐 2给小墨
+                int xiaomo2=0;
                 //本月直推省
                 int zt_privince=0;
                 //本月直推市
@@ -162,6 +166,12 @@ public class CountSettle {
                     }else
                     if (sss.getItems().contains("103989")){
                         xiaomo += sss.getGoodsNum();
+                    }else
+                    if (sss.getItems().contains("103990")){
+                        xiaomo1boxful += sss.getGoodsNum();
+                    }else
+                    if (sss.getItems().contains("103991")){
+                        xiaomo2 += sss.getGoodsNum();
                     }
                 }
 
@@ -177,6 +187,8 @@ public class CountSettle {
                 lie++;link.createCell(lie).setCellValue(paicha6*2394);
                 lie++;link.createCell(lie).setCellValue(xiaomo1paicha2*2786);
                 lie++;link.createCell(lie).setCellValue(xiaomo*1988);
+                lie++;link.createCell(lie).setCellValue(xiaomo1boxful*23856);
+                lie++;link.createCell(lie).setCellValue(xiaomo2*3976);
                 lie++;link.createCell(lie).setCellValue(zt_privince);
                 lie++;link.createCell(lie).setCellValue(zt_city);
                 lie++;link.createCell(lie).setCellValue(zt_area);
@@ -223,7 +235,7 @@ public class CountSettle {
         return sdf.format(new Date(Long.valueOf(seconds+"000")));
     }
 
-    //递归获取直推的订单
+    //递归获取直推的订单 todo 可能不是当前月份创建的直推关系
     private void rGetShopOrders(Integer agentMemberId, Integer memberId, String mon){
 
         //获取渠道商直推订单

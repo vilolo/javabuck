@@ -3,7 +3,7 @@ package com.example.settledemo.jobs;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Order implements Serializable {
+public class OrderEnpty implements Serializable {
     private Integer goodsId;
     private String openId;
     private BigDecimal price;

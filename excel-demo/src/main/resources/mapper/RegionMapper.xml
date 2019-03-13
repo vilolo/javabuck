@@ -85,7 +85,7 @@
       <include refid="Example_Where_Clause" />
     </if>
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      orderEnpty by ${orderByClause}
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.example.model.RegionExample">
