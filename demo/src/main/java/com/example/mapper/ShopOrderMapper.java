@@ -37,5 +37,5 @@ public interface ShopOrderMapper {
     List<ShopOrder> getShopOrderByMonth(@Param("memberId") int memberId, @Param("month") String month);
 
     //goods_level : 1=会员业绩，2=店长业绩
-    List<ShopOrder> getDirectOrder(@Param("memberId") int memberId, @Param("month") String month);
+    List<ShopOrder> getDirectOrder(@Param("memberId") int memberId);
 }

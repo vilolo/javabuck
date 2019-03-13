@@ -62,7 +62,7 @@ public class CountSettle {
 //                }
 
                 //???????????????????????
-                rGetShopOrders(item.getMemberId(), item.getMemberId(), mon);
+                rGetShopOrders(item.getMemberId(), item.getMemberId());
             }
 
             System.out.println(mon+"===========================");
@@ -127,6 +127,12 @@ public class CountSettle {
                 List<ShopOrder> llist = agentOrderList.get(key);
                 for (ShopOrder sss : llist){
                     //System.out.println("========="+sss.getId());
+
+                    //查看订单是否当前月份
+                    if (!sss.getMsg().equals(mon)){
+                        continue;
+                    }
+
                     zt_sale_total = zt_sale_total.add(sss.getPayMoney());
 
                     switch (sss.getRemark()){
@@ -236,15 +242,15 @@ public class CountSettle {
     }
 
     //递归获取直推的订单 todo 可能不是当前月份创建的直推关系
-    private void rGetShopOrders(Integer agentMemberId, Integer memberId, String mon){
+    private void rGetShopOrders(Integer agentMemberId, Integer memberId){
 
         //获取渠道商直推订单
-        List<ShopOrder> list = shopOrderMapper.getDirectOrder(memberId, mon);
+        List<ShopOrder> list = shopOrderMapper.getDirectOrder(memberId);
         if (list.size() > 0){
             for (ShopOrder ss:
                  list) {
                 if (!memberId.equals(ss.getMemberId())){
-                    rGetShopOrders(agentMemberId, ss.getMemberId(), mon);
+                    rGetShopOrders(agentMemberId, ss.getMemberId());
                 }
             }
         }
