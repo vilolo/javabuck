@@ -44,8 +44,8 @@ public interface MemberMapper {
     Map<String, Object> getMemberInfo(Integer memberId);
 
     //直推渠道商
-    int countDirectAgent(@Param("memberId") Integer memberId, @Param("level") Integer level, @Param("month") String month);
+    int countDirectAgent(@Param("memberId") Integer memberId, @Param("level") Integer level, @Param("startTimestemp") Integer startTimestemp, @Param("endTimestemp") Integer endTimestemp);
 
     //直推店长或会员
-    int countDirectMember(@Param("memberId") Integer memberId, @Param("level") Integer level, @Param("month") String month);
+    int countDirectMember(@Param("memberId") Integer memberId, @Param("level") Integer level, @Param("startTimestemp") Integer startTimestemp, @Param("endTimestemp") Integer endTimestemp);
 }

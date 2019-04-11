@@ -11,16 +11,14 @@ import com.example.model.AreaListExample;
 import com.example.model.Region;
 import com.example.model.RegionExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
@@ -35,7 +33,34 @@ public class DemoHandle {
     public void test(){
         //changeImgName();
         //test4();
-        area2();
+        //area2();
+        //areaYouZan();
+
+        //addRedis();
+        testFor();
+    }
+
+    private void testFor(){
+        List<String> list = Arrays.asList("a", "b", "c");
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, i+"aaa");
+        }
+        for (String a:
+             list) {
+            System.out.println(a);
+        }
+    }
+
+    @Autowired
+    RedisTemplate<String, String> redisTemplate;
+
+    private void addRedis(){
+        String key = "yz_data_pageView";
+        Map<String, Object> map = new HashMap<>();
+        map.put("uid", 14565);
+        map.put("openid", "bbbb");
+        map.put("buyerId", "123456789123");
+        redisTemplate.opsForList().leftPush(key, JSONObject.toJSONString(map));
     }
 
     private void changeImgName(){
@@ -290,6 +315,64 @@ public class DemoHandle {
                 }
             }
         }
+    }
+
+
+    private void areaYouZan(){
+        JSONObject jsonObject = JSON.parseObject((new StringBuilder(new AreaListJsonYouZan().list)).toString());
+        JSONObject provinceObject = jsonObject.getJSONObject("province_list");
+        JSONObject cityObject = jsonObject.getJSONObject("city_list");
+        JSONObject areaObject = jsonObject.getJSONObject("county_list");
+
+        for (String key : provinceObject.keySet()){
+            Region region = new Region();
+            region.setId(BigInteger.valueOf(Long.valueOf(key)));
+            region.setType((byte)1);
+            region.setName(provinceObject.getString(key));
+            region.setIdList(key);
+            regionMapper.insert(region);
+        }
+
+        for (String key : cityObject.keySet()){
+            Region region = new Region();
+            region.setId(BigInteger.valueOf(Long.valueOf(key)));
+            region.setType((byte)2);
+            region.setName(cityObject.getString(key));
+
+            String idList = "";
+            for (String pKey : provinceObject.keySet()){
+                if (key.substring(0, 2).equals(pKey.substring(0, 2))){
+                    idList = pKey+","+key;
+                    break;
+                }
+            }
+            region.setIdList(idList);
+            regionMapper.insert(region);
+        }
+
+        for (String key : areaObject.keySet()){
+            Region region = new Region();
+            region.setId(BigInteger.valueOf(Long.valueOf(key)));
+            region.setType((byte)3);
+            region.setName(areaObject.getString(key));
+
+            StringBuilder idList = new StringBuilder("");
+            for (String pKey : provinceObject.keySet()){
+                if (key.substring(0, 2).equals(pKey.substring(0, 2))){
+                    idList = new StringBuilder(pKey);
+                    for (String cKey : cityObject.keySet()){
+                        if (key.substring(0, 4).equals(cKey.substring(0, 4))){
+                            idList.append(",").append(cKey).append(",").append(key);
+                            break;
+                        }
+                    }
+                }
+            }
+            region.setIdList(idList.toString());
+            regionMapper.insert(region);
+        }
+
+        System.out.println("ok");
     }
 
 }

@@ -1053,12 +1053,14 @@
 
   <select id="countDirectMember" resultType="java.lang.Integer">
     select count(1) c from s_member
-    where r_member_id = #{memberId} and level = #{level} and status = 1 and left(from_unixtime(ctime), 7)=#{month}
+    where r_member_id = #{memberId} and level = #{level} and status = 1
+    and ctime <![CDATA[>]]> #{startTimestemp} and ctime <![CDATA[<]]> #{endTimestemp}
   </select>
 
   <select id="countDirectAgent" resultType="java.lang.Integer">
     select count(1) c from s_member a
     join s_area_agent b on a.id = b.member_id
-    where a.r_member_id = #{memberId} and a.level = #{level} and a.status = 1 and left(from_unixtime(b.create_time), 7)=#{month} and b.status = 1
+    where a.r_member_id = #{memberId} and a.level = #{level} and a.status = 1 and b.status = 1
+    and b.create_time <![CDATA[>]]> #{startTimestemp} and b.create_time <![CDATA[<]]> #{endTimestemp}
   </select>
 </mapper>
