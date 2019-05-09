@@ -19,7 +19,7 @@ public class AppListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        //demoHandle.test();
+//        demoHandle.test();
         countSettle.index();
 //        agentInfo.index();
     }

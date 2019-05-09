@@ -1174,7 +1174,7 @@
       when a.remark="会员推荐佣金" then 1   -- 会员业绩单
       when a.member_level=3 then 2          -- 店长业绩单
       when a.member_level>3 then 3          -- 渠道商业绩单
-    end remark, b.pay_money, b.items, b.goods_num, b.sn, left(FROM_UNIXTIME(b.create_time), 7) msg
+    end remark, b.pay_money, b.items, b.goods_num, b.sn, b.pay_time, left(FROM_UNIXTIME(b.create_time), 7) msg
     from s_profit_log a
     join s_shop_order b on a.from_order_id = b.id
     where a.member_id = #{memberId} and (a.status = 1 or a.status = 2)
@@ -1182,6 +1182,6 @@
         (a.money = b.pay_price*0.05 and a.member_level = 2) or -- 会员自己给自己下单,渠道商下会员下单，店长下会员下单，会员下游客下单
         a.money > b.pay_price*0.09     -- 渠道商自己下单，店长自己下单，渠道商下游客下单，店长下游客下单
     )
-    and a.type = 1
+    and a.type = 1 and a.member_level > 0
   </select>
 </mapper>
