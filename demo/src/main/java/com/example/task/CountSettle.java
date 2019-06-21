@@ -296,4 +296,8 @@ public class CountSettle {
             agentOrderList.put(agentMemberId, list);
         }
     }
+
+    void ddd(){
+        System.out.println("test Test");
+    }
 }

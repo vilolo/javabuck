@@ -17,10 +17,14 @@ public class AppListener implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     AgentInfo agentInfo;
 
+    @Autowired
+    CountSettle30 countSettle30;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 //        demoHandle.test();
-        countSettle.index();
+//        countSettle.index();
 //        agentInfo.index();
+        countSettle30.index();
     }
 }

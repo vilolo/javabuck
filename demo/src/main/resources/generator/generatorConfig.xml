@@ -14,7 +14,7 @@
         <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.191/mz_vmall" userId="root"-->
                         <!--password="Mz18!@#qwer">-->
         <!--</jdbcConnection>-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test" userId="root"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test_settle30" userId="root"
                         password="root">
         </jdbcConnection>
         <javaTypeResolver>
@@ -46,10 +46,11 @@
         <!--</table>-->
 
         <!-- <table tableName="t_sys_auth_info" domainObjectName="SysAuthInfo"></table> -->
-        <table tableName="s_area_agent" domainObjectName="AreaAgent"></table>
-        <table tableName="s_member" domainObjectName="Member"></table>
-        <table tableName="s_profit_log" domainObjectName="ProfitLog"></table>
-        <table tableName="s_shop_order" domainObjectName="ShopOrder"></table>
+        <table tableName="member_agent" domainObjectName="V3MemberAgent"></table>
+        <table tableName="member_info" domainObjectName="V3MemberInfo"></table>
+        <table tableName="order_goods_info" domainObjectName="V3OrderGoodsInfo"></table>
+        <table tableName="order_info" domainObjectName="V3OrderInfo"></table>
+        <table tableName="profit_log" domainObjectName="V3ProfitLog"></table>
 
     </context>
 </generatorConfiguration>

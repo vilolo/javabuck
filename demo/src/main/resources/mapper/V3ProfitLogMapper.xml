@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.V3ProfitLogMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.V3ProfitLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_level" property="memberLevel" jdbcType="INTEGER" />
+    <result column="area_ids" property="areaIds" jdbcType="VARCHAR" />
+    <result column="profit_type" property="profitType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="assets_type" property="assetsType" jdbcType="INTEGER" />
+    <result column="from_goods_id" property="fromGoodsId" jdbcType="INTEGER" />
+    <result column="from_agent_goods_id" property="fromAgentGoodsId" jdbcType="INTEGER" />
+    <result column="from_order_id" property="fromOrderId" jdbcType="INTEGER" />
+    <result column="from_member_id" property="fromMemberId" jdbcType="INTEGER" />
+    <result column="from_member_level" property="fromMemberLevel" jdbcType="INTEGER" />
+    <result column="goods_price" property="goodsPrice" jdbcType="DECIMAL" />
+    <result column="sale_count" property="saleCount" jdbcType="INTEGER" />
+    <result column="goods_profit_rate" property="goodsProfitRate" jdbcType="DECIMAL" />
+    <result column="profit_price" property="profitPrice" jdbcType="DECIMAL" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, member_id, member_level, area_ids, profit_type, status, assets_type, from_goods_id, 
+    from_agent_goods_id, from_order_id, from_member_id, from_member_level, goods_price, 
+    sale_count, goods_profit_rate, profit_price, rate, amount, remark, created_at, updated_at
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.model.V3ProfitLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from profit_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from profit_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from profit_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.model.V3ProfitLogExample" >
+    delete from profit_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.model.V3ProfitLog" >
+    insert into profit_log (id, member_id, member_level, 
+      area_ids, profit_type, status, 
+      assets_type, from_goods_id, from_agent_goods_id, 
+      from_order_id, from_member_id, from_member_level, 
+      goods_price, sale_count, goods_profit_rate, 
+      profit_price, rate, amount, 
+      remark, created_at, updated_at
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{memberLevel,jdbcType=INTEGER}, 
+      #{areaIds,jdbcType=VARCHAR}, #{profitType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{assetsType,jdbcType=INTEGER}, #{fromGoodsId,jdbcType=INTEGER}, #{fromAgentGoodsId,jdbcType=INTEGER}, 
+      #{fromOrderId,jdbcType=INTEGER}, #{fromMemberId,jdbcType=INTEGER}, #{fromMemberLevel,jdbcType=INTEGER}, 
+      #{goodsPrice,jdbcType=DECIMAL}, #{saleCount,jdbcType=INTEGER}, #{goodsProfitRate,jdbcType=DECIMAL}, 
+      #{profitPrice,jdbcType=DECIMAL}, #{rate,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{remark,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.V3ProfitLog" >
+    insert into profit_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="memberLevel != null" >
+        member_level,
+      </if>
+      <if test="areaIds != null" >
+        area_ids,
+      </if>
+      <if test="profitType != null" >
+        profit_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="assetsType != null" >
+        assets_type,
+      </if>
+      <if test="fromGoodsId != null" >
+        from_goods_id,
+      </if>
+      <if test="fromAgentGoodsId != null" >
+        from_agent_goods_id,
+      </if>
+      <if test="fromOrderId != null" >
+        from_order_id,
+      </if>
+      <if test="fromMemberId != null" >
+        from_member_id,
+      </if>
+      <if test="fromMemberLevel != null" >
+        from_member_level,
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price,
+      </if>
+      <if test="saleCount != null" >
+        sale_count,
+      </if>
+      <if test="goodsProfitRate != null" >
+        goods_profit_rate,
+      </if>
+      <if test="profitPrice != null" >
+        profit_price,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedAt != null" >
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevel != null" >
+        #{memberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="areaIds != null" >
+        #{areaIds,jdbcType=VARCHAR},
+      </if>
+      <if test="profitType != null" >
+        #{profitType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="assetsType != null" >
+        #{assetsType,jdbcType=INTEGER},
+      </if>
+      <if test="fromGoodsId != null" >
+        #{fromGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAgentGoodsId != null" >
+        #{fromAgentGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="fromOrderId != null" >
+        #{fromOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fromMemberId != null" >
+        #{fromMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="fromMemberLevel != null" >
+        #{fromMemberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleCount != null" >
+        #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsProfitRate != null" >
+        #{goodsProfitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="profitPrice != null" >
+        #{profitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.model.V3ProfitLogExample" resultType="java.lang.Integer" >
+    select count(*) from profit_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update profit_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberLevel != null" >
+        member_level = #{record.memberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.areaIds != null" >
+        area_ids = #{record.areaIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profitType != null" >
+        profit_type = #{record.profitType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetsType != null" >
+        assets_type = #{record.assetsType,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromGoodsId != null" >
+        from_goods_id = #{record.fromGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromAgentGoodsId != null" >
+        from_agent_goods_id = #{record.fromAgentGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromOrderId != null" >
+        from_order_id = #{record.fromOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromMemberId != null" >
+        from_member_id = #{record.fromMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fromMemberLevel != null" >
+        from_member_level = #{record.fromMemberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPrice != null" >
+        goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleCount != null" >
+        sale_count = #{record.saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsProfitRate != null" >
+        goods_profit_rate = #{record.goodsProfitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profitPrice != null" >
+        profit_price = #{record.profitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null" >
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null" >
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update profit_log
+    set id = #{record.id,jdbcType=INTEGER},
+      member_id = #{record.memberId,jdbcType=INTEGER},
+      member_level = #{record.memberLevel,jdbcType=INTEGER},
+      area_ids = #{record.areaIds,jdbcType=VARCHAR},
+      profit_type = #{record.profitType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      assets_type = #{record.assetsType,jdbcType=INTEGER},
+      from_goods_id = #{record.fromGoodsId,jdbcType=INTEGER},
+      from_agent_goods_id = #{record.fromAgentGoodsId,jdbcType=INTEGER},
+      from_order_id = #{record.fromOrderId,jdbcType=INTEGER},
+      from_member_id = #{record.fromMemberId,jdbcType=INTEGER},
+      from_member_level = #{record.fromMemberLevel,jdbcType=INTEGER},
+      goods_price = #{record.goodsPrice,jdbcType=DECIMAL},
+      sale_count = #{record.saleCount,jdbcType=INTEGER},
+      goods_profit_rate = #{record.goodsProfitRate,jdbcType=DECIMAL},
+      profit_price = #{record.profitPrice,jdbcType=DECIMAL},
+      rate = #{record.rate,jdbcType=DECIMAL},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.V3ProfitLog" >
+    update profit_log
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberLevel != null" >
+        member_level = #{memberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="areaIds != null" >
+        area_ids = #{areaIds,jdbcType=VARCHAR},
+      </if>
+      <if test="profitType != null" >
+        profit_type = #{profitType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="assetsType != null" >
+        assets_type = #{assetsType,jdbcType=INTEGER},
+      </if>
+      <if test="fromGoodsId != null" >
+        from_goods_id = #{fromGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="fromAgentGoodsId != null" >
+        from_agent_goods_id = #{fromAgentGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="fromOrderId != null" >
+        from_order_id = #{fromOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="fromMemberId != null" >
+        from_member_id = #{fromMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="fromMemberLevel != null" >
+        from_member_level = #{fromMemberLevel,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null" >
+        goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleCount != null" >
+        sale_count = #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsProfitRate != null" >
+        goods_profit_rate = #{goodsProfitRate,jdbcType=DECIMAL},
+      </if>
+      <if test="profitPrice != null" >
+        profit_price = #{profitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.V3ProfitLog" >
+    update profit_log
+    set member_id = #{memberId,jdbcType=INTEGER},
+      member_level = #{memberLevel,jdbcType=INTEGER},
+      area_ids = #{areaIds,jdbcType=VARCHAR},
+      profit_type = #{profitType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      assets_type = #{assetsType,jdbcType=INTEGER},
+      from_goods_id = #{fromGoodsId,jdbcType=INTEGER},
+      from_agent_goods_id = #{fromAgentGoodsId,jdbcType=INTEGER},
+      from_order_id = #{fromOrderId,jdbcType=INTEGER},
+      from_member_id = #{fromMemberId,jdbcType=INTEGER},
+      from_member_level = #{fromMemberLevel,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=DECIMAL},
+      sale_count = #{saleCount,jdbcType=INTEGER},
+      goods_profit_rate = #{goodsProfitRate,jdbcType=DECIMAL},
+      profit_price = #{profitPrice,jdbcType=DECIMAL},
+      rate = #{rate,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: test_mq_cli
+
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://user:pwd@10.0.3.124:12301/eureka/
